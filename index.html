@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DealFinder</title>
+  <title>DealFinder Flights</title>
 
   <style>
     * {
@@ -14,67 +14,44 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f4f6fb;
+      background: #f3f5fb;
       color: #172033;
     }
 
     header {
-      background: linear-gradient(135deg, #245bd8, #7638c9);
+      background: linear-gradient(120deg, #245bd6, #7435d4);
       color: white;
       text-align: center;
-      padding: 38px 20px;
+      padding: 42px 20px;
     }
 
     header h1 {
-      margin: 0;
+      margin: 0 0 10px;
       font-size: 38px;
     }
 
     header p {
-      margin-top: 12px;
+      margin: 0;
       font-size: 17px;
     }
 
-    .tabs {
-      display: flex;
-      gap: 12px;
-      max-width: 900px;
-      margin: 25px auto 0;
-      padding: 0 20px;
+    main {
+      width: min(900px, 94%);
+      margin: 30px auto;
     }
 
-    .tab {
-      flex: 1;
-      padding: 17px;
-      border: 0;
-      border-radius: 12px;
+    .card {
       background: white;
-      color: #245bd8;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .tab.active {
-      background: #245bd8;
-      color: white;
-    }
-
-    .panel {
-      max-width: 900px;
-      margin: 20px auto;
       padding: 28px;
-      background: white;
       border-radius: 18px;
-      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
     }
 
-    .panel h2 {
+    h2 {
       margin-top: 0;
-      font-size: 27px;
     }
 
-    .form-grid {
+    .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 18px;
@@ -86,218 +63,218 @@
       margin-bottom: 7px;
     }
 
-    input,
-    select {
+    input, select, button {
       width: 100%;
       padding: 14px;
-      border: 1px solid #cbd1dc;
       border-radius: 9px;
+      border: 1px solid #ccd2df;
       font-size: 16px;
-      background: white;
     }
 
-    .search-button {
-      width: 100%;
+    button {
       margin-top: 22px;
-      padding: 16px;
-      border: 0;
-      border-radius: 10px;
-      background: #245bd8;
+      background: #2456c5;
       color: white;
-      font-size: 18px;
+      border: none;
       font-weight: bold;
       cursor: pointer;
     }
 
-    .search-button:hover {
-      background: #1748b5;
+    button:hover {
+      background: #1744a9;
     }
 
-    #result {
-      display: none;
-      margin-top: 22px;
+    .results {
+      margin-top: 25px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .provider {
+      border: 1px solid #dce1eb;
+      border-radius: 12px;
       padding: 18px;
-      border-radius: 10px;
-      background: #eef3ff;
-      color: #243b75;
-      line-height: 1.6;
+      background: #fafbfe;
     }
 
-    footer {
-      text-align: center;
-      color: #687386;
-      padding: 30px 20px;
+    .provider h3 {
+      margin: 0 0 8px;
+    }
+
+    .provider a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 11px 15px;
+      border-radius: 8px;
+      background: #2456c5;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .note {
+      margin-top: 20px;
       font-size: 14px;
+      color: #5d6678;
+      line-height: 1.5;
     }
 
     @media (max-width: 650px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
       header h1 {
         font-size: 30px;
       }
 
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .panel {
-        margin: 20px;
-        padding: 22px;
-      }
-
-      .tabs {
-        padding: 0 20px;
+      .card {
+        padding: 20px;
       }
     }
   </style>
 </head>
 
 <body>
-
   <header>
     <h1>DealFinder</h1>
-    <p>Compare flight and shopping deals in one place</p>
+    <p>Compare flight deals from multiple websites</p>
   </header>
 
-  <div class="tabs">
-    <button class="tab active" onclick="showFlights()">✈ Flights</button>
-    <button class="tab" onclick="showShopping()">🛒 Shopping</button>
-  </div>
+  <main>
+    <div class="card">
+      <h2>Find Cheap Flights</h2>
 
-  <section class="panel" id="flightPanel">
-    <h2>Find Cheap Flights</h2>
+      <div class="grid">
+        <div>
+          <label for="from">From</label>
+          <input id="from" type="text" placeholder="Brisbane or BNE">
+        </div>
 
-    <div class="form-grid">
-      <div>
-        <label for="from">From</label>
-        <input id="from" type="text" placeholder="Brisbane">
+        <div>
+          <label for="to">To</label>
+          <input id="to" type="text" placeholder="Delhi or DEL">
+        </div>
+
+        <div>
+          <label for="departure">Departure date</label>
+          <input id="departure" type="date">
+        </div>
+
+        <div>
+          <label for="return">Return date</label>
+          <input id="return" type="date">
+        </div>
+
+        <div>
+          <label for="passengers">Passengers</label>
+          <select id="passengers">
+            <option value="1">1 passenger</option>
+            <option value="2">2 passengers</option>
+            <option value="3">3 passengers</option>
+            <option value="4">4 passengers</option>
+            <option value="5">5 passengers</option>
+            <option value="6">6 passengers</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="cabin">Cabin class</label>
+          <select id="cabin">
+            <option value="economy">Economy</option>
+            <option value="premiumeconomy">Premium Economy</option>
+            <option value="business">Business</option>
+            <option value="first">First</option>
+          </select>
+        </div>
       </div>
 
-      <div>
-        <label for="to">To</label>
-        <input id="to" type="text" placeholder="Delhi">
-      </div>
+      <button onclick="searchFlights()">Search Live Flight Deals</button>
 
-      <div>
-        <label for="departure">Departure date</label>
-        <input id="departure" type="date">
-      </div>
+      <div id="results" class="results"></div>
 
-      <div>
-        <label for="returnDate">Return date</label>
-        <input id="returnDate" type="date">
-      </div>
-
-      <div>
-        <label for="passengers">Passengers</label>
-        <select id="passengers">
-          <option>1 passenger</option>
-          <option>2 passengers</option>
-          <option>3 passengers</option>
-          <option>4 passengers</option>
-        </select>
-      </div>
-
-      <div>
-        <label for="cabin">Cabin class</label>
-        <select id="cabin">
-          <option>Economy</option>
-          <option>Premium Economy</option>
-          <option>Business</option>
-          <option>First Class</option>
-        </select>
+      <div class="note">
+        DealFinder does not invent prices. The buttons open live searches on the
+        providers’ own websites. Final prices, baggage, availability and booking
+        conditions are confirmed on the provider website.
       </div>
     </div>
-
-    <button class="search-button" onclick="searchFlights()">
-      Search Flight Deals
-    </button>
-
-    <div id="flightResult"></div>
-  </section>
-
-  <section class="panel" id="shoppingPanel" style="display: none;">
-    <h2>Find Shopping Deals</h2>
-
-    <label for="product">Product name</label>
-    <input id="product" type="text" placeholder="e.g. MacBook Pro">
-
-    <br><br>
-
-    <label for="budget">Maximum budget in AUD</label>
-    <input id="budget" type="number" placeholder="e.g. 3000">
-
-    <button class="search-button" onclick="searchShopping()">
-      Search Shopping Deals
-    </button>
-
-    <div id="shoppingResult"></div>
-  </section>
-
-  <footer>
-    DealFinder — live provider connections will be added through secure APIs.
-  </footer>
+  </main>
 
   <script>
-    function showFlights() {
-      document.getElementById("flightPanel").style.display = "block";
-      document.getElementById("shoppingPanel").style.display = "none";
-
-      document.querySelectorAll(".tab")[0].classList.add("active");
-      document.querySelectorAll(".tab")[1].classList.remove("active");
-    }
-
-    function showShopping() {
-      document.getElementById("flightPanel").style.display = "none";
-      document.getElementById("shoppingPanel").style.display = "block";
-
-      document.querySelectorAll(".tab")[0].classList.remove("active");
-      document.querySelectorAll(".tab")[1].classList.add("active");
+    function formatDate(dateValue) {
+      if (!dateValue) return "";
+      return dateValue.replaceAll("-", "");
     }
 
     function searchFlights() {
-      const from = document.getElementById("from").value;
-      const to = document.getElementById("to").value;
+      const from = document.getElementById("from").value.trim();
+      const to = document.getElementById("to").value.trim();
       const departure = document.getElementById("departure").value;
-      const returnDate = document.getElementById("returnDate").value;
+      const returnDate = document.getElementById("return").value;
+      const passengers = document.getElementById("passengers").value;
+      const cabin = document.getElementById("cabin").value;
+      const results = document.getElementById("results");
 
       if (!from || !to || !departure) {
-        alert("Please enter the departure city, destination and departure date.");
+        alert("Please enter From, To and Departure date.");
         return;
       }
 
-      const result = document.getElementById("flightResult");
+      const start = formatDate(departure);
+      const end = formatDate(returnDate);
 
-      result.style.display = "block";
-      result.innerHTML =
-        "<strong>Search details saved:</strong><br>" +
-        "From: " + from + "<br>" +
-        "To: " + to + "<br>" +
-        "Departure: " + departure + "<br>" +
-        "Return: " + (returnDate || "One way") +
-        "<br><br>" +
-        "Live flight prices will appear here after secure provider APIs are connected.";
-    }
+      const googleUrl =
+        "https://www.google.com/travel/flights?q=" +
+        encodeURIComponent(
+          "Flights from " + from + " to " + to +
+          " on " + departure +
+          (returnDate ? " returning " + returnDate : "") +
+          ", " + passengers + " passenger(s), " + cabin
+        );
 
-    function searchShopping() {
-      const product = document.getElementById("product").value;
-      const budget = document.getElementById("budget").value;
+      const skyscannerUrl =
+        "https://www.skyscanner.com/transport/flights/" +
+        encodeURIComponent(from) + "/" +
+        encodeURIComponent(to) + "/" +
+        start +
+        (end ? "/" + end : "") +
+        "/";
 
-      if (!product) {
-        alert("Please enter a product name.");
-        return;
-      }
+      const kayakUrl =
+        "https://www.kayak.com/flights/" +
+        encodeURIComponent(from) + "-" +
+        encodeURIComponent(to) + "/" +
+        departure +
+        (returnDate ? "/" + returnDate : "") +
+        "?sort=bestflight_a";
 
-      const result = document.getElementById("shoppingResult");
+      results.innerHTML = `
+        <div class="provider">
+          <h3>Google Flights</h3>
+          <p>Compare airlines, timings and current fares.</p>
+          <a href="${googleUrl}" target="_blank" rel="noopener">
+            Open Google Flights
+          </a>
+        </div>
 
-      result.style.display = "block";
-      result.innerHTML =
-        "<strong>Shopping search:</strong><br>" +
-        "Product: " + product + "<br>" +
-        "Maximum budget: " + (budget || "Not specified") + " AUD" +
-        "<br><br>" +
-        "Live shopping prices will appear here after retailer APIs are connected.";
+        <div class="provider">
+          <h3>Skyscanner</h3>
+          <p>Check available flight deals and booking options.</p>
+          <a href="${skyscannerUrl}" target="_blank" rel="noopener">
+            Open Skyscanner
+          </a>
+        </div>
+
+        <div class="provider">
+          <h3>KAYAK</h3>
+          <p>Compare flight offers from different travel providers.</p>
+          <a href="${kayakUrl}" target="_blank" rel="noopener">
+            Open KAYAK
+          </a>
+        </div>
+      `;
     }
   </script>
-
 </body>
 </html>
