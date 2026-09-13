@@ -1,1 +1,303 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DealFinder</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6fb;
+      color: #172033;
+    }
+
+    header {
+      background: linear-gradient(135deg, #245bd8, #7638c9);
+      color: white;
+      text-align: center;
+      padding: 38px 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 38px;
+    }
+
+    header p {
+      margin-top: 12px;
+      font-size: 17px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 12px;
+      max-width: 900px;
+      margin: 25px auto 0;
+      padding: 0 20px;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 17px;
+      border: 0;
+      border-radius: 12px;
+      background: white;
+      color: #245bd8;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: #245bd8;
+      color: white;
+    }
+
+    .panel {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 28px;
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .panel h2 {
+      margin-top: 0;
+      font-size: 27px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #cbd1dc;
+      border-radius: 9px;
+      font-size: 16px;
+      background: white;
+    }
+
+    .search-button {
+      width: 100%;
+      margin-top: 22px;
+      padding: 16px;
+      border: 0;
+      border-radius: 10px;
+      background: #245bd8;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .search-button:hover {
+      background: #1748b5;
+    }
+
+    #result {
+      display: none;
+      margin-top: 22px;
+      padding: 18px;
+      border-radius: 10px;
+      background: #eef3ff;
+      color: #243b75;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      color: #687386;
+      padding: 30px 20px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 650px) {
+      header h1 {
+        font-size: 30px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        margin: 20px;
+        padding: 22px;
+      }
+
+      .tabs {
+        padding: 0 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>DealFinder</h1>
+    <p>Compare flight and shopping deals in one place</p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showFlights()">✈ Flights</button>
+    <button class="tab" onclick="showShopping()">🛒 Shopping</button>
+  </div>
+
+  <section class="panel" id="flightPanel">
+    <h2>Find Cheap Flights</h2>
+
+    <div class="form-grid">
+      <div>
+        <label for="from">From</label>
+        <input id="from" type="text" placeholder="Brisbane">
+      </div>
+
+      <div>
+        <label for="to">To</label>
+        <input id="to" type="text" placeholder="Delhi">
+      </div>
+
+      <div>
+        <label for="departure">Departure date</label>
+        <input id="departure" type="date">
+      </div>
+
+      <div>
+        <label for="returnDate">Return date</label>
+        <input id="returnDate" type="date">
+      </div>
+
+      <div>
+        <label for="passengers">Passengers</label>
+        <select id="passengers">
+          <option>1 passenger</option>
+          <option>2 passengers</option>
+          <option>3 passengers</option>
+          <option>4 passengers</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="cabin">Cabin class</label>
+        <select id="cabin">
+          <option>Economy</option>
+          <option>Premium Economy</option>
+          <option>Business</option>
+          <option>First Class</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="search-button" onclick="searchFlights()">
+      Search Flight Deals
+    </button>
+
+    <div id="flightResult"></div>
+  </section>
+
+  <section class="panel" id="shoppingPanel" style="display: none;">
+    <h2>Find Shopping Deals</h2>
+
+    <label for="product">Product name</label>
+    <input id="product" type="text" placeholder="e.g. MacBook Pro">
+
+    <br><br>
+
+    <label for="budget">Maximum budget in AUD</label>
+    <input id="budget" type="number" placeholder="e.g. 3000">
+
+    <button class="search-button" onclick="searchShopping()">
+      Search Shopping Deals
+    </button>
+
+    <div id="shoppingResult"></div>
+  </section>
+
+  <footer>
+    DealFinder — live provider connections will be added through secure APIs.
+  </footer>
+
+  <script>
+    function showFlights() {
+      document.getElementById("flightPanel").style.display = "block";
+      document.getElementById("shoppingPanel").style.display = "none";
+
+      document.querySelectorAll(".tab")[0].classList.add("active");
+      document.querySelectorAll(".tab")[1].classList.remove("active");
+    }
+
+    function showShopping() {
+      document.getElementById("flightPanel").style.display = "none";
+      document.getElementById("shoppingPanel").style.display = "block";
+
+      document.querySelectorAll(".tab")[0].classList.remove("active");
+      document.querySelectorAll(".tab")[1].classList.add("active");
+    }
+
+    function searchFlights() {
+      const from = document.getElementById("from").value;
+      const to = document.getElementById("to").value;
+      const departure = document.getElementById("departure").value;
+      const returnDate = document.getElementById("returnDate").value;
+
+      if (!from || !to || !departure) {
+        alert("Please enter the departure city, destination and departure date.");
+        return;
+      }
+
+      const result = document.getElementById("flightResult");
+
+      result.style.display = "block";
+      result.innerHTML =
+        "<strong>Search details saved:</strong><br>" +
+        "From: " + from + "<br>" +
+        "To: " + to + "<br>" +
+        "Departure: " + departure + "<br>" +
+        "Return: " + (returnDate || "One way") +
+        "<br><br>" +
+        "Live flight prices will appear here after secure provider APIs are connected.";
+    }
+
+    function searchShopping() {
+      const product = document.getElementById("product").value;
+      const budget = document.getElementById("budget").value;
+
+      if (!product) {
+        alert("Please enter a product name.");
+        return;
+      }
+
+      const result = document.getElementById("shoppingResult");
+
+      result.style.display = "block";
+      result.innerHTML =
+        "<strong>Shopping search:</strong><br>" +
+        "Product: " + product + "<br>" +
+        "Maximum budget: " + (budget || "Not specified") + " AUD" +
+        "<br><br>" +
+        "Live shopping prices will appear here after retailer APIs are connected.";
+    }
+  </script>
+
+</body>
+</html>
